@@ -1,0 +1,90 @@
+<%# <!-- app/views/payments/new.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Page</title>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  
+</head>
+<body>
+  <button id="payButton">Pay Now</button>
+
+  <script>
+    document.getElementById("payButton").addEventListener("click", function() {
+      var amount = 10; // You can set the amount dynamically based on user input
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_51NaimQSFmmaiQy9ietleTdCO53wM7gJi89TOY9XIuZwaPs5y8NpU889HQYKzJSFuYwLd4usdg9ejn0jIu2Pg627G00Kks846L2',
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        currency: 'usd',
+        amount: amount * 100,
+        name: 'Your Company Name',
+        description: 'Payment for Order',
+        token: function(token) {
+          // Send the token to your backend to process the payment
+          fetch('/payments/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: amount, token: token.id })
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Handle the response from the backend (e.g., show success message)
+            console.log(data);
+          })
+          .catch(error => console.error('Error:', error));
+        }
+      });
+
+      // Open the Stripe Checkout popup
+      handler.open();
+    });
+  </script>
+</body>
+</html> %>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Payment</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h1>Payment Page</h1>
+  <button id="payButton">Pay Now</button>
+
+  <script>
+    // Replace with your Stripe Publishable Key
+    const stripe = Stripe('pk_test_51NaimQSFmmaiQy9ietleTdCO53wM7gJi89TOY9XIuZwaPs5y8NpU889HQYKzJSFuYwLd4usdg9ejn0jIu2Pg627G00Kks846L2');
+
+    document.getElementById("payButton").addEventListener("click", function() {
+      // Replace with the amount you want to charge (in cents)
+      const amount = 1000; // $10.00
+
+      // Create a PaymentIntent on your server
+      fetch('/payments/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ amount: amount })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Redirect to Stripe Checkout
+        // conosole.log(data.sessionId);
+        stripe.redirectToCheckout({
+          sessionId: data.sessionId
+        })
+        .then(result => {
+          // Handle any redirection errors (if necessary)
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>

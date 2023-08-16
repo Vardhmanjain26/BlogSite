@@ -1,0 +1,5 @@
+Stripe.api_key = 'sk_test_51NaimQSFmmaiQy9ilRwWdIUryDcggmCPpNOH7KkRTgidRhp7WVEPeGDi6pDFREKr2GcdyurDtXKiiYg2pUYmo0aa00qBAHLyo5'
+
+
+# publishable_key: 'pk_test_51NaimQSFmmaiQy9ietleTdCO53wM7gJi89TOY9XIuZwaPs5y8NpU889HQYKzJSFuYwLd4usdg9ejn0jIu2Pg627G00Kks846L2',
+#   secret_key: 'sk_test_51NaimQSFmmaiQy9ilRwWdIUryDcggmCPpNOH7KkRTgidRhp7WVEPeGDi6pDFREKr2GcdyurDtXKiiYg2pUYmo0aa00qBAHLyo5'
