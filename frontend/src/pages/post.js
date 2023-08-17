@@ -1,13 +1,12 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import '../components/Post/Post.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { AiOutlineLike } from 'react-icons/ai'
-import { BsBookmarkPlus } from 'react-icons/bs';
-import { FaThumbsUp, FaRegComment, FaBookmark } from "react-icons/fa";
+import { BsBookmarkPlus, BsSave2Fill } from 'react-icons/bs';
+import { BiLike, BiComment } from "react-icons/bi";
 
 const PostDetail = () => {
 
@@ -24,7 +23,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     if (!jwtToken) {
-      navigate("/signin");
+      navigate("/register");
     }
     async function fetchMainData() {
       try {
@@ -159,62 +158,46 @@ const PostDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="post-details-container">
+      <div>
 
-        <div className="post-details">
+        <h3 className='post-title'>{post.title}</h3>
+        <div className='author-container'>
+          <img src={post.image} alt={post.title} style={{ width: "50%" }} />
+          <span> Author : <a href={`/profile/${post.author_id}`} className='author'> {post.author_name}</a></span>
 
-          <h3 className='post-title'>{post.title}</h3>
-          <p className='post-topic'>{post.topic}</p>
-          <div className='author-container'>
-            <div className='top-container'>
-              <i class="fa fa-user fa-lg"></i>
-              <a href={`/profile/${post.author_id}`} className='author'>{post.author_name}</a>
-            </div>
-
-            <div className='interaction'>
-
-
-              {isLiked ? <p>{post.likes_count + 1}</p> : <p>{post.likes_count}</p>}
-              {isLiked ? <FaThumbsUp onClick={handleDislike} style={{ cursor: "pointer" }}></FaThumbsUp> : <AiOutlineLike onClick={handleLike} style={{ cursor: "pointer" }}></AiOutlineLike>}
-              &nbsp; &nbsp;&nbsp;&nbsp;
-              &nbsp; &nbsp;&nbsp;&nbsp;
-              <p>{post.comments_count}</p>
-              <FaRegComment onClick={openCommentPopup} style={{ cursor: "pointer" }} />
-              &nbsp; &nbsp;&nbsp;&nbsp;
-              &nbsp; &nbsp;&nbsp;&nbsp;
-              {
-                isSaved ? <BsBookmarkPlus onClick={handleSavePost} style={{ cursor: "pointer" }} /> : <FaBookmark />
-              }
-            </div>
-            <img class="post-img" src={post.image} alt={post.title} />
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+            {isLiked ? <> {post.likes_count + 1} </> : <>{post.likes_count}</>}
+            {isLiked ? <AiOutlineLike onClick={handleDislike} style={{ cursor: "pointer", marginRight: "30px" }}></AiOutlineLike> : <BiLike onClick={handleLike} style={{ cursor: "pointer", marginRight: "30px" }}></BiLike>}
+            <>{post.comments_count}</>
+            <BiComment onClick={openCommentPopup} style={{ cursor: "pointer", marginRight: "30px" }} />
+            {isSaved ? <BsBookmarkPlus onClick={handleSavePost} style={{ cursor: "pointer" }} /> : <BsSave2Fill />}
           </div>
-          {showCommentPopup && (
-            <div className="comment-popup">
-              <div className="close-button-container">
-                <button onClick={closeCommentPopup}>X</button>
-              </div>
-              <textarea
-                rows="4"
-                cols="50"
-                value={newComment}
-                onChange={handleCommentChange}
-                placeholder="Enter your comment..."
-              />
-              <button onClick={handleSubmitComment}>Submit</button>
-              <ul>
-                {comments.map((comment, index) => (
-                  <li key={index} className="comment-box">
-                    <p className="comment-author">{comment.author_name}</p>
-                    <p className="comment-text">{comment.text}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <p className='post-text'>{post.text}</p>
-
         </div>
-
+        {showCommentPopup && (
+          <div >
+            <textarea
+              rows="10"
+              cols="100"
+              value={newComment}
+              onChange={handleCommentChange}
+              style={{ backgroundColor: "Lightgrey", marginBottom: "5px" }}
+            />
+            <div style = {{marginBottom : "10px"}}>
+              <button onClick={closeCommentPopup} style={{ color: "white", backgroundColor: "red"}}> close </button>
+              <button onClick={handleSubmitComment} style = {{color : "white" , backgroundColor : "blue" , marginLeft : "5px"}}>Submit</button>
+            </div>
+            
+            {/* <ul>
+              {comments.map((comment, index) => (
+                <li key={index} className="comment-box">
+                  <p className="comment-author">{comment.author_name}</p>
+                  <p className="comment-text">{comment.text}</p>
+                </li>
+              ))}
+            </ul> */}
+          </div>
+        )}
+        <div style={{ fontSize: "25px" }}>{post.text}</div>
 
       </div>
     </>

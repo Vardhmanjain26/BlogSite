@@ -11,7 +11,7 @@ import {
   NavBtnLink2,
   Image
 } from "./NavbarElements";
-import profileImg from "./pic.jpg"
+import profileImg from "./pic2.jpg"
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -38,10 +38,10 @@ const Navbar = () => {
       return (
         <>
           <NavBtn1>
-            <NavBtnLink1  to="/signup">Sign Up</NavBtnLink1>
+            <NavBtnLink1  to="/register">Register</NavBtnLink1>
           </NavBtn1>
           <NavBtn2>
-            <NavBtnLink2  to="/signin">Sign In</NavBtnLink2>
+            <NavBtnLink2  to="/login">Log In</NavBtnLink2>
           </NavBtn2>
         </>
       )

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios'; 
 import { useNavigate,useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import '../components/Post/AddPost.css';
 import Navbar from "../components/Navbar";
 const jwtToken = localStorage.getItem('jwtToken');
 const EditPost = () => {
@@ -23,7 +22,7 @@ const EditPost = () => {
   useEffect(() => {
     if(!jwtToken)
     {
-      navigate("/signin");
+      navigate("/register");
     }
     console.log(postId,"jwt is here", jwtToken);
     axios.get(`http://127.0.0.1:3000/get/post/${postId}`, {headers})
@@ -78,27 +77,27 @@ const EditPost = () => {
   return (
     <>
     <Navbar/> 
-    <div className="add-post-container">
-      <h2>Add Post</h2>
+    <div style = {{width : "50%" , marginLeft : "auto" , marginRight : "auto"}}>
+      <h1 style = {{textAlign : "center"}}>Edit Post</h1>
       <div className="form-group">
-        <label>Title:</label>
+        <label>Title</label>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
       <div className="form-group">
-        <label>Topic:</label>
+        <label>Topic</label>
         <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
       </div>
 
       <div className="form-group">
-        <label>Image:</label>
+        <label>Image</label>
         <input type="file" accept="image/*"  onChange={handleImageChange} />
       </div>
       <div className="form-group">
-        <label>Text:</label>
+        <label>Description</label>
         <textarea value={text} onChange={(e) => setText(e.target.value)} />
       </div>
       <button className="save-button" onClick={handleSave}>
-        Save
+        Edit
       </button>
     </div>
     </>

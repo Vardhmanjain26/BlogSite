@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../components/SavePost/SavedPost.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -14,7 +12,7 @@ const SavedPost = () => {
   };
   useEffect(() => {
     if (!jwtToken) {
-      navigate("/signin");
+      navigate("/register");
     }
     (async () => {
       await axios
@@ -32,17 +30,15 @@ const SavedPost = () => {
     <>
       <Navbar />
       <div>
-        <h2 className="mypost">Saved Posts</h2>
+        <h1 style = {{textAlign : "center" , fontSize : "50px"}}>Saved Posts</h1>
         {posts.map((post) => (
-          <div key={post.post_id} className="post">
-            <div className="post-details">
-              <h3>Title: {post.post_title}</h3>
-              <p>Topic: {post.topic}</p>
-              <p>Author: {post.author_name}</p>
-              <p>{post.text}</p>
-              <Link to={`/post/${post.post_id}`}>View Details</Link>
+          <div key = {post.post_id}>
+            <div>
+              <h1> {post.post_title}</h1>
+              <img src={post.featured_image} alt={post.title} style={{width : "50%" }} />
+              <h4> by {post.author_name}</h4>
+              <div style={{marginTop : "20px"}}>{post.text}</div>
             </div>
-            <img src={post.featured_image} alt={post.title} />
           </div>
         ))}
       </div>

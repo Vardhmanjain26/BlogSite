@@ -36,41 +36,55 @@ export const Wrapper2 = styled.div`
 `;
 
 export const PostWrapper = styled.div`
-background-color : #b78c3a4d;
+    background-color : #b78c3a4d;
+    box-shadow: 5px 6px 40px rgba(0, 0, 0, 0.5);
     font-size: 18px;
     padding: 1rem;
     word-spacing: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     margin: 0 0 5rem;
-    margin-top : 10px;
 `;
+
+export const PostWrapper2 = styled.div`
+    background-color : lightyellow;
+    box-shadow: 5px 6px 40px rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    padding: 1rem;
+    word-spacing: 6px;
+    margin-bottom : 20px;
+`;
+
 export const Starting = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin: 0 0 1rem;
+    margin-bottom : 15px;
 `
 export const Heading = styled.div`
-    font-size: 16px;
+    font-size: 25px;
+    font-weight : 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     
 `
 export const ReadTime = styled.div`
     
 `
 export const Title = styled(LinkR)`
-    font-size: 24px;
-    font-weight: bolder;
-    text-decoration: none;
-    color: black;
-    margin: 0 0 1rem;
+  font-size: 24px;
+  font-weight: bolder;
+  text-decoration: none;
+  color: black;
+  margin: 0 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom : 100px;
 `
 export const Description = styled.div`
     margin: 0 0 1rem;
     
 `
 export const Ending = styled.div`
-    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 export const Likes = styled.div`
     
@@ -82,42 +96,13 @@ export const Date = styled.div`
     
 `
 export const Name = styled.h3`
+    color : gray;
 `
-export const Email = styled.span`
-  
+export const Email = styled.span` 
+    color : gray;
 `
 export const Gender = styled.span`
   
-`
-export const Followers = styled.button`
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  background: #4169e1;
-  color: white;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  width: 10rem;
-    border: none;
-`
-export const Following = styled.button`
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  background: white;
-  color: black;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  width: 10rem;
-  margin-top: -0.5rem;
-  border: 0.5px solid black;
-`
-export const FollowWrapper = styled.div`
-  display: grid;
-  width: 50rem;
-  grid-gap: 0;
 `
 export const Image = styled.img`
   margin: 1rem 0;
@@ -126,26 +111,24 @@ export const Image = styled.img`
   cursor: pointer;
 `
 export const Input = styled.input`
-  color: black;
-    width: 90%;
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-bottom: 0.5rem;
-    background-color: rgba(39, 39, 39, 0.2);
+    font-size: 20px;
+    margin-bottom: 1rem;
+    background-color : lightgrey;
 `
 export const Button = styled.button`
-    padding: 8px;
+  padding: 8px;
   font-size: 16px;
   font-weight: bolder;
-  border-radius: 4px;
   cursor: pointer;
   border-radius: 5px;
   background: #5be505;
   color: white;
   border: none;
   background: ${({ green }) => (green ? "#5be505" : "black")};
+  margin-bottom : 20px;
 `
 
 export const InputWrapper = styled.div`
@@ -154,7 +137,7 @@ export const InputWrapper = styled.div`
 `
 
 export const EButton = styled.button`
-font-size: 16px;
+font-size: 30px;
 border-radius: 4px;
 cursor: pointer;
 border-radius: 5px;
@@ -170,7 +153,7 @@ export const LastWrapper = styled.div`
   grid-gap: 10px;
 `
 export const Topic = styled.div`
-    background-color: #d9d9d9;
-    border-radius: 5px;
-    text-align: center;
+    font-size : 30px;
+    font-weight : 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `

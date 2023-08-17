@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages";
-import Signup from "./pages/signup";
-import Signin from "./pages/signin";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Logout from "./pages/logout";
 import Post from "./pages/post";
 import Profile from "./pages/profile";
@@ -16,8 +16,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Main />} />
-        <Route path="/signup" exact element={<Signup />} />
-        <Route path="/signin" exact element={<Signin />} />
+        <Route path="/register" exact element={<Register />} />
+        <Route path="/login" exact element={<Login />} />
         <Route path="/logout" exact element={<Logout />} />
         <Route path="/post/:postId" exact element={<Post />} />
         <Route path="/profile/:uid" exact element={<Profile />} />

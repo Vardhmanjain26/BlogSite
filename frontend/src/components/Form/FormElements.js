@@ -1,7 +1,5 @@
 import styled from "styled-components";
 export const Img = styled.img`
-  /* width: 100%; */
-  /* height: 100%; */
   margin-top: 0rem;
 `;
 
@@ -14,5 +12,4 @@ export const Button = styled.button`
   color: white;
   margin-top: 30px;
   margin-bottom: 10px;
-  width: 100%;
 `;

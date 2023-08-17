@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { SearchInput, Topic, LastWrapper, EButton, InputWrapper, Button, Input, Image, Container, Wrapper1, Wrapper2, PostWrapper, Starting, Heading, ReadTime, Title, Description, Ending, Likes, Comments, Date, Name, Email, Gender, Followers, Following, FollowWrapper } from "../components/Profile/ProfileElements";
+import { Topic, LastWrapper, EButton, InputWrapper, Button, Input, Container, Wrapper1, Wrapper2, PostWrapper, PostWrapper2, Starting, Heading, ReadTime, Title, Description, Ending, Likes, Comments, Date, Name, Email } from "../components/Profile/ProfileElements";
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
-import { FaThumbsUp, FaRegComment, FaRegEdit, FaPen, FaTrash, FaBookmark, FaEnvelope } from "react-icons/fa";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillChatSquareDotsFill } from "react-icons/bs";
+import { BiSolidCommentEdit } from "react-icons/bi";
+import { BsTrashFill } from "react-icons/bs";
 
 
 const MyDetails = () => {
@@ -20,7 +23,7 @@ const MyDetails = () => {
 
 	useEffect(() => {
 		if (!jwtToken) {
-			navigate("/signin");
+			navigate("/register");
 		}
 	}, []);
 
@@ -68,6 +71,13 @@ const MyDetails = () => {
 				console.error(error);
 			})
 		setImageFile(file);
+	};
+
+	const excerpt = (str) => {
+		if (str.length > 300) {
+			str = str.substring(0, 300) + " ... ";
+		}
+		return str;
 	};
 
 	const handleSave = () => {
@@ -157,27 +167,38 @@ const MyDetails = () => {
 				{posts.map((item) => {
 					return (
 						<PostWrapper key={item.id}>
-							<Starting>
-								<Heading>{item.author_name}</Heading>
-								<ReadTime> {Number(0.008 * item.text.split(" ").length).toPrecision(3)} min read</ReadTime>
+							<Starting >
 								<Topic>{item.topic}</Topic>
+								<ReadTime style={{ marginLeft: "100px" }}> Reading Time :{Number(0.008 * item.text.split(" ").length).toPrecision(3)} </ReadTime>
 							</Starting>
-							<hr />
-							<Title to={`/post/${item.id}`} >
-								{item.title}
-							</Title>
-							<Description>
-								{item.text.substring(0, 100)}...
-							</Description>
-							<img style={{ width: "400px" }} src={item.image} alt={item.title} />
-							<Ending>
-								<Likes>{item.likes_count} <FaThumbsUp style={{ margin: -4 }} /></Likes>
-								<Comments>{item.comments_count} <FaRegComment style={{ margin: -4 }} /></Comments>
-								<Date> Date : 16-08-2023</Date>
+
+							<PostWrapper2>
+								<Title to={`/post/${item.id}`} >
+									{item.title}
+								</Title>
+								<img style={{
+									height: "300px",
+									width: "400px",
+									display: "block",
+									marginBottom: "10px",
+									width: "50%"
+								}} src={item.image} alt={item.title} />
+								<Description>
+									{excerpt(item.text)}
+								</Description>
+							</PostWrapper2>
+
+							<Ending style={{ marginBottom: "20px" }}>
+								<Likes>{item.likes_count} <AiFillHeart style={{ margin: -4 }} />  </Likes>
+								<Comments>{item.comments_count} <BsFillChatSquareDotsFill style={{ margin: -4 }} />  </Comments>
 							</Ending>
+							<Starting>
+								<Heading>Author : {item.author_name}</Heading>
+							</Starting>
+							<Date> 17-Aug-2023 </Date>
 							<LastWrapper>
-								<Link to={`/post/${item.id}/edit`}><EButton><FaRegEdit /></EButton></Link>
-								<EButton onClick={() => handleDelete(item.id)} ><FaTrash /></EButton>
+								<Link to={`/post/${item.id}/edit`}><EButton><BiSolidCommentEdit /></EButton></Link>
+								<EButton onClick={() => handleDelete(item.id)} style={{ marginLeft: "670px" }} ><BsTrashFill /></EButton>
 								<div id="ed"></div>
 							</LastWrapper>
 						</PostWrapper>
@@ -191,25 +212,32 @@ const MyDetails = () => {
 			<Navbar />
 			<Container>
 				<Wrapper1>
-					{/* <Image src={profileImg}></Image> */}
 					<Name>{authorDetails.name}</Name>
 					<Email>{authorDetails.email}</Email>
 					<br /><br />
-					<EButton onClick={toggleAdd} style ={{backgroundColor : "#f44336" , padding : "10px" , color : "white"}}> Add Blog</EButton>
+					<div onClick={toggleAdd} style={{ color: "grey", padding: "10px", cursor: "pointer" }}> Add Blog</div>
 					<br /><br />
-					<EButton onClick={() => navigate("/savedPosts") } style ={{backgroundColor : "#14a44d" , padding : "10px" , color : "white"}}> Saved Posts</EButton>
+					<div onClick={() => navigate("/myDrafts")} style={{ color: "grey", padding: "10px", cursor: "pointer" }}> View Drafts</div>
 					<br /><br />
-					{/* <EButton onClick={() => navigate("/myDrafts")} style ={{backgroundColor : "#f44336" , padding : "10px" , color : "white"}}> View Drafts</EButton> */}
+					<div onClick={() => navigate("/savedPosts")} style={{ padding: "10px", color: "grey", cursor: "pointer" }}> Saved Posts</div>
 					<br /><br />
 				</Wrapper1>
 				<Wrapper2>
 					<InputWrapper show={showInput}>
 						<Input id="title" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></Input>
-						<Input id="description" placeholder="Description" value={text} onChange={(e) => setText(e.target.value)}></Input>
 						<Input id="topic" placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)}></Input>
+						<textarea   rows="10" cols="300" id="description" placeholder="Description" value={text} onChange={(e) => setText(e.target.value)} 
+									style={{
+										width: "100%",
+										padding: "10px",
+										border: "none",
+										fontSize: "20px",
+										marginBottom: "1rem",
+										backgroundColor : "lightgrey"}}
+						/>
 						<Input id="image" type="file" placeholder="Topic" accept="image/*" onChange={handleImageChange}></Input>
-						<Button onClick={handleSave}>Add article</Button>
-						<Button onClick={handleSaveDraft} style={{ marginLeft: "20px" }}>Save as Draft</Button>
+						<Button onClick={handleSaveDraft}>Save as Draft</Button>
+						<Button onClick={handleSave} style={{ marginLeft: "550px" }}>Add Post</Button>
 					</InputWrapper>
 					<RenderFeed />
 				</Wrapper2>
