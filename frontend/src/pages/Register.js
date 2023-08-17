@@ -33,7 +33,7 @@ const Register = () => {
         password: '',
       });
       setErrors(validate(formData));
-      navigate('/signin');
+      navigate('/login');
     } catch (error) {
       console.error('Sign-up failed:', error);
     }

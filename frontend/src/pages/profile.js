@@ -24,7 +24,7 @@ const Profile = () => {
 
 	useEffect(() => {
 		if (!jwtToken) {
-			navigate("/register")
+			navigate("/login")
 		}
 		axios.get(`http://127.0.0.1:3000/get/post/author/${uid}`)
 			.then((response) => {

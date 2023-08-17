@@ -17,13 +17,13 @@ const MyDetails = () => {
 
 	const [title, setTitle] = useState('');
 	const [topic, setTopic] = useState('');
-	const [imageFile, setImageFile] = useState(null); // State to store the selected image file
+	const [imageFile, setImageFile] = useState(null); 
 	const [text, setText] = useState('');
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!jwtToken) {
-			navigate("/register");
+			navigate("/login");
 		}
 	}, []);
 

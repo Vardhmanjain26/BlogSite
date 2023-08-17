@@ -86,7 +86,7 @@ const Login = () => {
             placeholder="******"
           />
           <Button onClick={loginUser} type='submit'>
-            Sign in
+            Log in
           </Button>
         </form>
       </div>

@@ -22,7 +22,7 @@ const EditPost = () => {
   useEffect(() => {
     if(!jwtToken)
     {
-      navigate("/register");
+      navigate("/login");
     }
     console.log(postId,"jwt is here", jwtToken);
     axios.get(`http://127.0.0.1:3000/get/post/${postId}`, {headers})

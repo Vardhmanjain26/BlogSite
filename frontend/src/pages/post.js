@@ -23,7 +23,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     if (!jwtToken) {
-      navigate("/register");
+      navigate("/login");
     }
     async function fetchMainData() {
       try {

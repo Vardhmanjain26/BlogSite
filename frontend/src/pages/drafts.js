@@ -16,7 +16,7 @@ const Draft = () => {
     };
     useEffect(() => {
         if (!jwtToken) {
-            navigate("/register");
+            navigate("/login");
         }
         axios.get('http://127.0.0.1:3000/get/myPost', { headers })
             .then((response) => {
