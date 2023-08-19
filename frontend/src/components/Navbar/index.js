@@ -54,6 +54,9 @@ const Navbar = () => {
           <NavLogo  to="/" onClick={toggleHome}>
             BlogSite
           </NavLogo >
+          <NavBtn1 onClick={() => navigate("/payment")} style = {{color : "white" , cursor : "pointer"}} >
+             Buy Premium
+          </NavBtn1>
           <NavBtnWrap>
             <RenderMenu />
           </NavBtnWrap>

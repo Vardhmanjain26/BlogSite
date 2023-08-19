@@ -72,24 +72,24 @@ const Feed = () => {
                         <PostWrapper key={item.id}>
                             <Starting >
                                 <Topic>{item.topic}</Topic>
-                                <ReadTime style={{ marginLeft: "100px" }}> Reading Time :{Number(0.008 * item.text.split(" ").length).toPrecision(3)} </ReadTime>
+                                <ReadTime style={{ marginLeft: "90px" }}> Read Time :{Number(0.008 * item.text.split(" ").length).toPrecision(3)} min </ReadTime>
                             </Starting>
 
                             <PostWrapper2>
                                 <Title to={`/post/${item.id}`} >
                                     {item.title}
                                 </Title>
-                                <Description>
-                                    {excerpt(item.text)}
-                                </Description>
                                 <img style={{
                                     height : "270px",
                                     width: "300px",
                                     display: "block",
                                     marginLeft: "auto",
                                     marginRight: "auto",
-                                    width: "50%"
+                                    width: "100%"
                                 }} src={item.image} alt={item.title} />
+                                                               <Description>
+                                    {excerpt(item.text)}
+                                </Description>
                             </PostWrapper2>
 
                             <Ending style={{ marginBottom: "20px" }}>

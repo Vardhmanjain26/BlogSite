@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { Topic, Container, Wrapper1, Wrapper2, PostWrapper, PostWrapper2 , Starting, Heading, ReadTime, Title, Description, Ending, Likes, Comments, Date, Name, Email} from "../components/Profile/ProfileElements";
+import { Topic, Container, Wrapper1, Wrapper2, PostWrapper, PostWrapper2 , Starting, Heading, ReadTime, Title, Description, Ending, Likes, Comments, Date, Name, Email} from "../components/profile_elements";
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";

@@ -187,14 +187,14 @@ const PostDetail = () => {
               <button onClick={handleSubmitComment} style = {{color : "white" , backgroundColor : "blue" , marginLeft : "5px"}}>Submit</button>
             </div>
             
-            {/* <ul>
+            <ul>
               {comments.map((comment, index) => (
-                <li key={index} className="comment-box">
-                  <p className="comment-author">{comment.author_name}</p>
-                  <p className="comment-text">{comment.text}</p>
+                <li key={index} className="comment-box" style = {{listStyleType : "none"}}>
+                  <p className="comment-author"> <b>{comment.author_name}</b> : {comment.text}</p>
+             
                 </li>
               ))}
-            </ul> */}
+            </ul>
           </div>
         )}
         <div style={{ fontSize: "25px" }}>{post.text}</div>

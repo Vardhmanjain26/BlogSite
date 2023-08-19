@@ -5,8 +5,6 @@ import { useEffect } from 'react';
 import Navbar from "../components/Navbar";
 const jwtToken = localStorage.getItem('jwtToken');
 const EditPost = () => {
-
-
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [topic, setTopic] = useState('');

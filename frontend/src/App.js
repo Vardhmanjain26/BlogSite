@@ -10,6 +10,7 @@ import MyDetails from "./pages/myDetails";
 import SavedPost from "./pages/savedPosts";
 import EditPost from "./pages/editPost";
 import Draft from "./pages/drafts";
+import Payment from "./pages/payment";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/post/:postId/edit" element={<EditPost />} />
         <Route path="/myDrafts" element={<Draft />} />
         <Route path="/savedPosts" exact element={<SavedPost />} />  
+        <Route path="/payment" exact element={<Payment />} />  
       </Routes>
     </BrowserRouter>
   );

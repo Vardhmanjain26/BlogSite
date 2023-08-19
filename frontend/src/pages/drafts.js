@@ -62,23 +62,21 @@ const Draft = () => {
             <Navbar />
             <Container>
                 <Wrapper2>
-                    <Title style = {{fontSize : "50px"}}>Drafts</Title>
-                    <div style = {{marginBottom : "30px"}}> </div>
+                    <Title style={{ fontSize: "50px" }}>Drafts</Title>
+                    <div style={{ marginBottom: "30px" }}> </div>
                     {posts.map((item) => {
                         return (
                             <PostWrapper key={item.id}>
                                 <Starting >
                                     <Topic>{item.topic}</Topic>
-                                    <ReadTime style={{ marginLeft: "100px" }}> Reading Time :{Number(0.008 * item.text.split(" ").length).toPrecision(3)} </ReadTime>
+                                    <ReadTime style={{ marginLeft: "100px" }}> Reading Time :{Number(0.008 * item.text.split(" ").length).toPrecision(3)} min </ReadTime>
                                 </Starting>
 
                                 <PostWrapper2>
                                     <Title to={`/post/${item.id}`} >
                                         {item.title}
                                     </Title>
-                                    <Description>
-                                        {excerpt(item.text)}
-                                    </Description>
+
                                     <img style={{
                                         height: "270px",
                                         width: "300px",
@@ -87,6 +85,10 @@ const Draft = () => {
                                         marginRight: "auto",
                                         width: "50%"
                                     }} src={item.image} alt={item.title} />
+
+                                    <Description>
+                                        {excerpt(item.text)}
+                                    </Description>
                                 </PostWrapper2>
 
                                 <Ending style={{ marginBottom: "20px" }}>

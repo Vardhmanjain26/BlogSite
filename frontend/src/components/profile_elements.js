@@ -96,7 +96,7 @@ export const Date = styled.div`
     
 `
 export const Name = styled.h3`
-    color : gray;
+    color : grey;
 `
 export const Email = styled.span` 
     color : gray;

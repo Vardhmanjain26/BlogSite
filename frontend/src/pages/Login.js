@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar/index";
-import { Button } from "../components/Form/FormElements";
 import axios from 'axios';
 import img from "./welcome.jpg";
 
@@ -85,9 +84,19 @@ const Login = () => {
             className={`form-input }`}
             placeholder="******"
           />
-          <Button onClick={loginUser} type='submit'>
+
+          <button onClick={loginUser} type='submit'style={{
+            padding: "1rem 2rem",
+            fontSize: "1rem",
+            borderRadius: "4px",
+            cursor: "pointer",
+            background: "#4169e1",
+            color: "white",
+            marginTop: "30px",
+            marginbottom: "10px"
+          }}>
             Log in
-          </Button>
+          </button>
         </form>
       </div>
     </>
