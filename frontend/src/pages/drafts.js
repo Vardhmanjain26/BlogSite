@@ -8,6 +8,9 @@ import { BsFillChatSquareDotsFill } from "react-icons/bs";
 
 const Draft = () => {
 
+    const [selectedDraft, setSelectedDraft] = useState(null);
+
+
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const jwtToken = localStorage.getItem('jwtToken');
@@ -57,6 +60,42 @@ const Draft = () => {
     };
 
 
+    const handleSelectDraft = (draft) => {
+        setSelectedDraft(draft);
+    };
+
+    const handleMoveDraftToPost = () => {
+        if (selectedDraft) {
+            const postData = {
+                title: selectedDraft.title,
+                topic: selectedDraft.topic,
+                text: selectedDraft.text,
+                author_id: 1, // Replace with the appropriate author ID
+                featured_image: selectedDraft.featured_image,
+            };
+
+            axios.post('http://127.0.0.1:3000/create/post', postData, { headers })
+                .then((response) => {
+                    console.log('Draft moved to post:', response.data);
+                    // You might want to update the UI or do something else after moving the draft
+                })
+                .catch((error) => {
+                    console.error('Error moving draft to post:', error);
+                    // Handle error, if needed
+                });
+
+            // Remove the selected draft from your drafts list
+            // You can filter the posts array to exclude the selected draft
+            const updatedPosts = posts.filter((item) => item.id !== selectedDraft.id);
+            setPosts(updatedPosts);
+
+            // Clear the selected draft
+            setSelectedDraft(null);
+        }
+    };
+
+
+
     return (
         <>
             <Navbar />
@@ -98,12 +137,55 @@ const Draft = () => {
                                 <Starting>
                                     <Heading>Author : {item.author_name}</Heading>
                                 </Starting>
-                                <Date> 17-Aug-2023 </Date>
+                                <Date> 23-Aug-2023 </Date>
+                                <button onClick={() => handleSelectDraft(item)}>Move to Post</button>
                             </PostWrapper>
                         );
                     })}
                 </Wrapper2>
             </Container>
+
+            <div style = {{marginLeft : "auto" , marginRight : "auto" ,width : "80%"}}>
+            {selectedDraft && (
+                <>
+                        <h1>Selected Draft</h1>
+                        <PostWrapper>
+                                <Starting >
+                                    <Topic>{selectedDraft.topic}</Topic>
+                                    <ReadTime style={{ marginLeft: "100px" }}> Reading Time :{Number(0.008 * selectedDraft.text.split(" ").length).toPrecision(3)} min </ReadTime>
+                                </Starting>
+
+                                <PostWrapper2>
+                                    <Title to={`/post/${selectedDraft.id}`} >
+                                        {selectedDraft.title}
+                                    </Title>
+
+                                    <img style={{
+                                        height: "270px",
+                                        width: "300px",
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                        width: "50%"
+                                    }} src={selectedDraft.image} alt={selectedDraft.title} />
+
+                                    <Description>
+                                        {excerpt(selectedDraft.text)}
+                                    </Description>
+                                </PostWrapper2>
+
+                                <Ending style={{ marginBottom: "20px" }}>
+                                    <Likes>{selectedDraft.likes_count} <AiFillHeart style={{ margin: -4 }} />  </Likes>
+                                    <Comments>{selectedDraft.comments_count} <BsFillChatSquareDotsFill style={{ margin: -4 }} />  </Comments>
+                                </Ending>
+                                <Starting>
+                                    <Heading>Author : {selectedDraft.author_name}</Heading>
+                                </Starting>
+                                <button onClick={handleMoveDraftToPost}>Move to Post</button>
+                            </PostWrapper>
+                            </>
+                )}
+            </div>
 
         </>
     );

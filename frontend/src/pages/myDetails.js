@@ -21,7 +21,7 @@ const MyDetails = () => {
 	const [text, setText] = useState('');
 	const [isPremiumMember, setIsPremiumMember] = useState(false);
 
-	 const [/* ... */ revisionHistory, setRevisionHistory] = useState([]);
+	const [/* ... */ revisionHistory, setRevisionHistory] = useState([]);
 	const [selectedRevision, setSelectedRevision] = useState(null);
 	const navigate = useNavigate();
 
@@ -59,12 +59,12 @@ const MyDetails = () => {
 			});
 	}, [])
 
-	useEffect(()=>{
+	useEffect(() => {
 		const savedRevisions = localStorage.getItem('revisionHistory');
 		if (savedRevisions) {
-		  setRevisionHistory(JSON.parse(savedRevisions));
+			setRevisionHistory(JSON.parse(savedRevisions));
 		}
-	},[]);
+	}, []);
 
 	useEffect(() => {
 		RenderFeed();
@@ -103,7 +103,7 @@ const MyDetails = () => {
 		setRevisionHistory(prevRevisionHistory => [...prevRevisionHistory, newRevision]);
 		const updatedRevisions = [...revisionHistory, newRevision];
 		localStorage.setItem('revisionHistory', JSON.stringify(updatedRevisions));
-	
+
 		const postData = {
 			title: title,
 			topic: topic,
@@ -136,7 +136,7 @@ const MyDetails = () => {
 
 	useEffect(() => {
 		localStorage.setItem('revisionHistory', JSON.stringify(revisionHistory));
-	  }, [revisionHistory]);
+	}, [revisionHistory]);
 
 	const handleSelectRevision = (revision) => {
 		setSelectedRevision(revision);
@@ -184,8 +184,40 @@ const MyDetails = () => {
 				console.error('Error fetching posts:', error);
 
 			});
-		window.location.reload();
 	}
+
+	const handleMakePost = () => {
+		if (selectedRevision) {
+		  const postData = {
+			title: selectedRevision.title,
+			topic: selectedRevision.topic,
+			text: selectedRevision.text,
+			author_id: 1, 
+			featured_image: selectedRevision.featured_image,
+		  };
+	  
+		  axios.post('http://127.0.0.1:3000/create/post', postData, { headers })
+			.then((response) => {
+			  console.log('Post created:', response.data);
+			})
+			.catch((error) => {
+			  console.error('Error creating post:', error);
+			});
+
+			axios.get('http://127.0.0.1:3000/get/myPost', { headers })
+			.then((response) => {
+				setPosts(response.data);
+				// console.log(response.data);
+			})
+			.catch((error) => {
+				console.error('Error fetching posts:', error);
+
+			});
+	  
+		  setSelectedRevision(null);
+		}
+	  };
+	  
 
 	const toggleAdd = () => {
 		setShowInput(1 - showInput);
@@ -225,7 +257,6 @@ const MyDetails = () => {
 							<Starting>
 								<Heading>Author : {item.author_name}</Heading>
 							</Starting>
-							{/* <Date> 17-Aug-2023 </Date> */}
 							<LastWrapper>
 								<Link to={`/post/${item.id}/edit`}><EButton><BiSolidCommentEdit /></EButton></Link>
 								<EButton onClick={() => handleDelete(item.id)} style={{ marginLeft: "670px" }} ><BsTrashFill /></EButton>
@@ -237,6 +268,8 @@ const MyDetails = () => {
 			</>
 		)
 	}
+
+
 	return (
 		<>
 			<Navbar />
@@ -279,8 +312,9 @@ const MyDetails = () => {
 						<Button onClick={handleSave} style={{ marginLeft: "550px" }}>Add Post</Button>
 					</InputWrapper>
 					<RenderFeed />
-										{/* Render the Revision History */}
-										<div>
+
+					{/* Render the Revision History */}
+					<div>
 						<h2>Revision History</h2>
 						{revisionHistory.map((revision, index) => (
 							<div key={index}>
@@ -295,12 +329,13 @@ const MyDetails = () => {
 						<div>
 							<h2>Selected Revision</h2>
 							<h3>{selectedRevision.title}</h3>
-							{/* Render other fields here */}
+							<p>{selectedRevision.topic}</p>
 							<p>{selectedRevision.text}</p>
-							{/* Display the selected image if needed */}
 							{selectedRevision.featured_image && (
-								<img src={selectedRevision.featured_image} alt={selectedRevision.title} />
+								<img src={selectedRevision.featured_image} alt={selectedRevision.title} style={{ width: "400px", height: "400px" }} />
 							)}
+							{/* Button to make the selected revision a post */}
+							<button onClick={handleMakePost}>Make Post</button>
 						</div>
 					)}
 				</Wrapper2>
